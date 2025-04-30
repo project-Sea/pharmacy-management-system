@@ -1,4 +1,9 @@
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <windows.h>
+
 #include <iostream>
+#include "medicine.h"
 #include <windows.h>
 #include <iomanip>
 
@@ -118,8 +123,8 @@ void showInventoryMenu() {
         cin >> inventoryChoice;
 
         switch(inventoryChoice) {
-            case 1: addMedicine(); break;
-            case 2: updateMedicine(); break;
+            case 1: addNewMedicine(); break;
+            case 2: updateMedicineInfo(); break;
             case 3: checkExpiry(); break;
             case 4: searchMedicine(); break;
             case 5: break;
