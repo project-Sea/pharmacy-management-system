@@ -19,7 +19,7 @@ bool isExpired(const ExpiryDate &expiry)
     int currentMonth = localTime->tm_mon + 1;    // tm_mon is months since January (0-11)
     int currentDay = localTime->tm_mday;         // tm_mday is the day of the month (1-31)
 
-    // Check if the expiry date has passed
+    //For the intro loop: Check if the expiry date has passed
     if (expiry.year < currentYear)
     {
         return true;
@@ -55,11 +55,4 @@ void printCurrentDate()
 {
     ExpiryDate currentDate = getCurrentDate();
     std::cout << "Current date: " << currentDate.year << "-" << currentDate.month << "-" << currentDate.day << std::endl;
-}
-int main()
-{
-    getCurrentDate();
-    printCurrentDate();
-
-    return 0;
 }
