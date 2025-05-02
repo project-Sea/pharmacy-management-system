@@ -1,0 +1,17 @@
+# Ignore object files and binaries
+*.o
+*.a
+*.so
+*.out
+*.exe
+pharmacy
+
+# Ignore the build directory
+/build/
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Ignore MySQL Connector libraries if they are installed locally (optional)
+lib/
