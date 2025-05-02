@@ -4,14 +4,48 @@
 #include <algorithm>
 #include <windows.h>
 
+
 using namespace std;
 
-struct Medicine{
-    int id,quantity;
-    string name, expiryDate;
-    double price;
+class Medicine{
+    private:
+        int id,quantity;
+        string name, expiryDate, category;
+        double price;
+    public:
+        void inputDetails(){
+            cout << "Enter the name of the Medicine: ";
+            getline(cin >> ws, name);
+            cout << "Enter the ID of the Medicine: ";
+            cin >> id;
+            cout << "Enter the category of the Medicine: ";
+            getline(cin >> ws, category);
+            cout << "Enter the quantity: ";
+            cin >> quantity;
+            cout << "Enter the price: ";
+            cin >> price;
+            cout << "Enter the expiry date of the medicine: ";
+            getline(cin >> ws, expiryDate);
+            
+        }
+
+        void display(){
+            cout << "ID: "<< id << ", Name: " << name 
+            << ", Category: " <<category << ", Quantity: " << quantity 
+            << ", Price: " << price << ", Expiry Date: " << expiryDate << endl;
+        }
+
+        int getId() const {return id;}
+        string getName() const {return name;}
+        void setId(int i){ id = i;}
+        void setName(string n) {name = n;}
+        void setPrice(double p) { price = p;}
+        void setQuantity(int q) { quantity =q;}
+        void setExpiry(string e) { expiryDate = e;}
+        void setCategory(string c) {category = c;}
+        
 };
-vector <Medicine> inventory;
+extern vector <Medicine> inventory;
 void loadingAnimationh(const string& message) {
     system("cls");
     cout << "\n\n\t\t\t\t" << message;
@@ -26,124 +60,116 @@ void addNewMedicine(){
     system("cls");
     cout << "\n\n\t\t\t\tAdd New Medicine: " << endl;
     Medicine m1;
-    cout << "Enter the name of the Medicine: ";
-    cin >> m1.name;
-    cout << "Enter the ID of the Medicine: ";
-    cin >> m1.id;
-    cout << "Enter the quantity: ";
-    cin >> m1.quantity;
-    cout << "Enter the price: ";
-    cin >> m1.price;
-    cout << "Enter the expiry date of the medicine: ";
-    cin >> m1.expiryDate;
+    m1.inputDetails();
     cout << "Medicine added successfully!"<< endl;
-    cout << "ID: "<< m1.id << ", Name: " << m1.name << ", Quantity: " <<
-          m1.quantity << ", Price: " << m1.price << ", Expiry Date: " <<
-          m1.expiryDate << endl;
+    m1.display();
     inventory.push_back(m1);
     cout << endl;
 }
+void editMedicine(Medicine& med){
+    int num;
+    do{
+        cout << "\nWhat do you want to update?" << endl;
+        cout << "1. Name\n2. ID\n3. Category\n4. Price\n5. Quantity\n6. Expiry Date\n7. Exit editing\nChoice: ";
+        cin >> num;
+        switch (num) {
+            case 1: {
+                string name;
+                cout << "New Name: ";
+                getline(cin >> ws, name);
+                med.setName(name);
+                break;}
+            case 2: {
+                int id;
+                cout << "New ID: ";
+                cin >> id;
+                med.setId(id);
+                break;}
+            case 3:{
+                string category;
+                cout << "New Category: ";
+                getline(cin >> ws, category);
+                med.setCategory(category);
+                break;}
+            case 4:{
+                double price;
+                cout << "New Price: ";
+                cin >> price;
+                med.setPrice(price);
+                break;}
+            case 5:{
+                int qt;
+                cout << "New Quantity: ";
+                cin >> qt;
+                med.setQuantity(qt);
+                break;}
+            case 6:{
+                string expiry;
+                cout << "New Expiry Date: ";
+                getline(cin >> ws, expiry);
+                med.setExpiry(expiry);
+                break;}
+            case 7:
+                cout << "Finished editing." << endl;
+                break;
+            default:
+                cout << "Invalid choice!" << endl;
+        }
+    }while (num !=7);
+}
 void updateMedicineInfo(){
     cout << "Update Medicine Information: " << endl;
-    int id, choice;
-    string name;
+    int edit_choice;
+    cout << "Edit By:\n1. Name or\n2. ID?\n3. Return\nChoice: ";
+    cin >> edit_choice;
+
     bool found = false;
-    cout << "Find by: \n1. ID or \n2. Name?"<< endl;
-    cin >> choice;
-    if(choice == 1){
-        cout << "Enter ID: ";
-        cin >> id;
-        for(int i=0; i<inventory.size(); ++i){
-            Medicine& medicine = inventory[i];
 
-            if(medicine.id == id){
-                found = true;
-
-                cout << "Medicine found!" << endl;
-
-                while(true){
-                    int num;
-                    cout << "What do you want to change?" << endl;
-                    cout << "1. Name\n2. Price\n3. Quantity\n4. Expiry Date\n5. Exit Editing" << endl;
-                    cin >> num;
-                    switch (num){
-                        case 1:
-                            cout << "Enter Name: ";
-                            cin >> medicine.name;
-                            break;
-                        case 2:
-                            cout << "Enter Price: ";
-                            cin >> medicine.price;
-                            break;
-                        case 3:
-                            cout << "Enter Quantity: ";
-                            cin >> medicine.quantity;
-                            break;
-                        case 4:
-                            cout << "Enter Expiry Date: ";
-                            cin >> medicine.expiryDate;
-                            break;
-                        case 5:
-                            return;
-                        default:
-                            cout << "Invalid choice!"<< endl;
-                    }
-                }
-            }
-            if(found){
-                break;
-            }
-        }
-
-    }else if (choice == 2){
+    if(edit_choice == 1){
+        string name;
         cout << "Enter Name: ";
-        cin >>  name;
-        for(int i=0; i<inventory.size(); ++i){
-            Medicine& medicine = inventory[i];
+        cin.ignore();
+        getline(cin, name);
 
-            if(medicine.name == name){
+        for(int i=0;i<inventory.size();++i){
+            Medicine& med= inventory[i];
+            if(med.getName() == name){
                 found = true;
-
                 cout << "Medicine found!" << endl;
-
-                while(true){
-                    int num;
-                    cout << "What do you want to change?" << endl;
-                    cout << "1. ID\n2. Price\n3. Quantity\n4. Expiry Date\n5. Exit Editing" << endl;
-                    cin >> num;
-                    switch (num){
-                        case 1:
-                            cout << "Enter ID: ";
-                            cin >> medicine.id;
-                            break;
-                        case 2:
-                            cout << "Enter Price: ";
-                            cin >> medicine.price;
-                            break;
-                        case 3:
-                            cout << "Enter Quantity: ";
-                            cin >> medicine.quantity;
-                            break;
-                        case 4:
-                            cout << "Enter Expiry Date: ";
-                            cin >> medicine.expiryDate;
-                            break;
-                        case 5:
-                            return;
-                        default:
-                            cout << "Invalid choice!"<< endl;
-                    }
-                }
-            }
-            if(found){
-                break;
+                editMedicine(med);
+                if (found){ break;}
             }
         }
-    }else {
-        cout << "You give invalid input!\n";
-    }
-    if(!found){
-        cout << "Medicine not found in the inventory!" << endl;
-    }
+        if(!found) cout << "Medicine not found!" << endl;
+    }else if (edit_choice == 2){
+        int id;
+        cout << "Enter the ID: ";
+        cin >> id;
 
+        for(int i=0;i<inventory.size();++i){
+            Medicine& med= inventory[i];
+            if(med.getId() == id){
+                found = true;
+                cout << "Medicine found!" << endl;
+                editMedicine(med);
+                if (found){ break;}
+            }
+        }
+        if(!found) cout << "Medicine not found!" << endl;
+    }else if (edit_choice == 3){ return;}
+    else {
+        cout << "Invalid input!" << endl;
+    }
+}
+void displayAllMedicines() {
+    system("cls");
+    cout << "\n\n\t\t\t\tAll Medicines in Inventory:\n" << endl;
+    if (inventory.empty()) {
+        cout << "No medicines in the inventory yet." << endl;
+        return;
+    }
+    for (int i=0;i< inventory.size();++i) {
+        Medicine & med =inventory[i];
+        med.display();
+    }
 }
