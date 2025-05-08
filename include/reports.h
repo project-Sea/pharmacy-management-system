@@ -4,6 +4,7 @@
 #include <string>
 
 void generateDailyReport();
+void generateWeeklyReport();
 void generateMonthlyReport();
 void generateNetRevenueReport();
 

@@ -2,6 +2,7 @@
 
 int main() {
     generateDailyReport();
+    generateWeeklyReport();
     generateMonthlyReport();
     generateNetRevenueReport();
     return 0;

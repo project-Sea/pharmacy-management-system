@@ -1,38 +1,39 @@
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -std=c++17 -Iinclude -Wall
+CXXFLAGS = -Iinclude -Idb -std=c++17
 
-# Library for MySQL
-LIBS = -lmysqlcppconn
+# Linker flags for MySQL Connector/C++
+MYSQL_INC = -IC:/mysql-connector-c++-9.3.0-winx64/include
+MYSQL_LIB = -LC:/mysql-connector-c++-9.3.0-winx64/lib64
+MYSQL_LINK = -lmysqlcppconn8
 
 # Directories
 SRC_DIR = src
-OBJ_DIR = obj
+OBJ_DIR = build
 BIN_DIR = bin
 
-# Source files and target output
-SRC = $(wildcard $(SRC_DIR)/*.cpp)
-OBJ = $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+# Files
+SRCS := $(wildcard $(SRC_DIR)/*.cpp)
+OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
 TARGET = $(BIN_DIR)/pharmacy
 
-# Default target to build the project
+# Build rules
 all: $(TARGET)
 
-# Create directories if they don't exist
-$(OBJ_DIR) $(BIN_DIR):
-	mkdir -p $@
+$(TARGET): $(OBJS)
+	@mkdir -p $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) $(MYSQL_INC) -o $@ $^ $(MYSQL_LIB) $(MYSQL_LINK)
 
-$(TARGET): $(OBJ)
-	$(CXX) $(OBJ) -o $(TARGET) $(LIBS)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) $(MYSQL_INC) -c $< -o $@
 
-# Rule to compile .cpp files into .o object files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+run: all
+	$(TARGET)
 
-# Clean target to remove object files and the target executable
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	del /Q $(OBJ_DIR)\*.o $(TARGET).exe 2>nul || exit 0
 
-# PHONY targets (don't correspond to files)
-.PHONY: all clean
+.PHONY: all clean run
+
 

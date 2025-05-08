@@ -32,6 +32,35 @@ void generateDailyReport() {
     }
 }
 
+void generateWeeklyReport() {
+    try {
+        sql::Connection* conn = getDBConnection();
+        sql::Statement* stmt = conn->createStatement();
+
+        string query = "SELECT YEAR(sale_date) AS year, WEEK(sale_date, 1) AS week, "
+                       "SUM(total_price) AS weekly_total "
+                       "FROM sales "
+                       "GROUP BY year, week "
+                       "ORDER BY year, week";
+
+        sql::ResultSet* res = stmt->executeQuery(query);
+
+        cout << "\n=== Weekly Sales Report ===\n";
+        while (res->next()) {
+            cout << "Year: " << res->getInt("year")
+                 << " | Week: " << res->getInt("week")
+                 << " | Total: $" << fixed << setprecision(2)
+                 << res->getDouble("weekly_total") << '\n';
+        }
+
+        delete res;
+        delete stmt;
+        delete conn;
+    } catch (sql::SQLException& e) {
+        cerr << "Error generating weekly report: " << e.what() << '\n';
+    }
+}
+
 void generateMonthlyReport() {
     try {
         sql::Connection* conn = getDBConnection();
