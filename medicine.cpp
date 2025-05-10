@@ -1,10 +1,12 @@
 #include <iostream>
 #include "medicine.h"
-vector <Medicine> inventory;
-int main() {
+vector<Medicine> inventory;
+int main()
+{
     int choice;
 
-    do {
+    do
+    {
         cout << "\n=== Pharmacy Management System ===" << endl;
         cout << "1. Add New Medicine" << endl;
         cout << "2. Update Medicine Info" << endl;
@@ -13,21 +15,22 @@ int main() {
         cout << "Enter your choice: ";
         cin >> choice;
 
-        switch (choice) {
-            case 1:
-                addNewMedicine();
-                break;
-            case 2:
-                updateMedicineInfo();
-                break;
-            case 3:
-                displayAllMedicines();
-                break;            
-            case 4:
-                cout << "Exiting program. Goodbye!" << endl;
-                break;
-            default:
-                cout << "Invalid choice. Try again." << endl;
+        switch (choice)
+        {
+        case 1:
+            addNewMedicine();
+            break;
+        case 2:
+            updateMedicineInfo();
+            break;
+        case 3:
+            displayAllMedicines();
+            break;
+        case 4:
+            cout << "Exiting program. Goodbye!" << endl;
+            break;
+        default:
+            cout << "Invalid choice. Try again." << endl;
         }
     } while (choice != 4);
 
