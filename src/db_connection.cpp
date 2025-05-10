@@ -15,7 +15,7 @@ MYSQL *createConnection()
 
     std::cout << "Trying to connect...\n";
 
-    if (mysql_real_connect(conn, "localhost", "root", "yourpassword", "fop_db2", 3306, NULL, 0))
+    if (mysql_real_connect(conn, "localhost", "root", "0nyxx", "fop_db2", 3306, NULL, 0))
     {
         std::cout << "Connected to database!" << std::endl;
 

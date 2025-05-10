@@ -1,6 +1,6 @@
 #ifndef DB_CONNECTION_H
 #define DB_CONNECTION_H
-#include <mysql.h>
+#include "mysql/mysql.h"
 MYSQL *createConnection();
 void closeConnection(MYSQL *); // Close the connection
 #include <iostream>
