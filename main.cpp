@@ -17,6 +17,5 @@ int main()
 
     // Close the connection
     closeConnection(conn);
-    system("pause");
     return 0;
 }

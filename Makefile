@@ -1,14 +1,15 @@
--.RECIPEPREFIX = >
- CXX := g++
- CXXFLAGS := -std=c++17 -Iinclude -Iinclude/mysql
- LDFLAGS := -Llib -lmysql
+CXX := g++
+CXXFLAGS := -std=c++17 -Iinclude -Iinclude/mysql
 
- all: $(TARGET)
+LDFLAGS := -Llib -lmysql
 
- $(TARGET): $(SRCS)
--    $(CXX) $(CXXFLAGS) -o $(TARGET) $(SRCS) $(LDFLAGS)
-+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRCS) $(LDFLAGS)
+SRCS := main.cpp src/db_connection.cpp src/src.cpp src/ui.cpp
+TARGET := main
 
- clean:
--    rm -f $(TARGET)
-+	rm -f $(TARGET)
+all: $(TARGET)
+
+$(TARGET): $(SRCS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRCS) $(LDFLAGS)
+
+clean:
+	rm -f $(TARGET)

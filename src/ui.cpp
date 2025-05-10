@@ -39,7 +39,7 @@ void showMainMenu()
             break;
         default:
             std::cout << "\n\t\t\t\tInvalid choice! Try again.\n";
-            Sleep(1000);
+            Sleep(100);
         }
     } while (choice != 3);
 }
@@ -55,9 +55,16 @@ void showWelcomeScreen()
     std::cout << "\t\t\t\t#     Pharmacy Management System   #\n";
     std::cout << "\t\t\t\t#                                  #\n";
     std::cout << "\t\t\t\t####################################\n";
-    std::cout << "\n\t\t\t\t### No Expired Drugs Detected ###\n";
-
-    Sleep(2500);
+    if (false){
+        system("COLOR A");
+        std::cout << "\n\t\t\t\t### No Expired Drugs Detected ###\n";
+    } 
+    else
+        system("COLOR 4");
+        std::cout << "\n\t\t\t\t### ALERT!!! ###\n";
+        std::cout << "\n\t\t\t\t### Expired Drugs Detected!!! ###\n";
+    
+    system("Pause");
     system("COLOR B");
 }
 
@@ -75,20 +82,20 @@ void showStartupAnimation()
     for (int i = 0; i < 30; i++)
     {
         std::cout << (char)bar2;
-        Sleep(30);
+        Sleep(100);
     }
 
     system("cls");
 }
 
-void loadingAnimation(const string &message)
+void loadingAnimation(const std::string &message)
 {
     system("cls");
     std::cout << "\n\n\t\t\t\t" << message;
     for (int i = 0; i < 3; i++)
     {
         std::cout << ".";
-        Sleep(500); // Delay for 500 milliseconds
+        Sleep(300); // Delay for 500 milliseconds
     }
     std::cout << std::endl;
 }
@@ -142,13 +149,13 @@ void showSalesMenu()
     {
         system("cls");
         std::cout << "\n\n";
-        std::cout << "\t\t\t\t" << setfill('-') << setw(43) << "-" << std::endl;
+        std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
         std::cout << "\t\t\t\t|     Sales & Financial Management    |\n";
-        std::cout << "\t\t\t\t" << setfill('-') << setw(43) << "-" << std::endl;
+        std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
         std::cout << "\t\t\t\t| 1. Process Sales Transaction        |\n";
         std::cout << "\t\t\t\t| 2. View Sales Reports               |\n";
         std::cout << "\t\t\t\t| 3. Return to Main Menu              |\n";
-        std::cout << "\t\t\t\t" << setfill('-') << setw(43) << "-" << std::endl;
+        std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
         std::cout << "\n\t\t\t\tEnter your choice: ";
         std::cin >> salesChoice;
         // C:\Users\HP\Documents\GitHub\Cpp resources and projects\fop_project

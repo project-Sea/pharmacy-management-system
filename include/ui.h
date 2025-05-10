@@ -1,13 +1,13 @@
 #ifndef UI_H
 #define UI_H
 #include <iostream>
-using namespace std;
 #include <iomanip>
+#include <string>
 #include <windows.h>
 void showMainMenu();
 void showWelcomeScreen();
 void showStartupAnimation();
-void loadingAnimation(const string &);
+void loadingAnimation(const std::string &);
 void showInventoryMenu();
 void showSalesMenu();
 void addMedicine();

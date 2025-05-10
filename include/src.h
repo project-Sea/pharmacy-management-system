@@ -11,8 +11,6 @@
 #include <mysql.h> // / mysql.h is a header file that provides the MySQL C API.
 void startProgram(MYSQL *conn);
 
-using namespace std;
-
 void showInventoryMenu();
 void showSalesMenu();
 // void addMedicine();
