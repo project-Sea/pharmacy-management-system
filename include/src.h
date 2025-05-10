@@ -9,7 +9,7 @@
 #include <iomanip>
 #include <iostream>
 #include <mysql.h> // / mysql.h is a header file that provides the MySQL C API.
-void startProgram(MYSQL *conn);
+void startProgram();
 
 using namespace std;
 

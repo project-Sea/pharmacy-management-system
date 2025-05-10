@@ -1,19 +1,22 @@
 #ifndef UI_H
 #define UI_H
 #include <iostream>
-using namespace std;
 #include <iomanip>
 #include <windows.h>
+#include <string>
+#include <vector>
+#include "sales.h"
 void showMainMenu();
 void showWelcomeScreen();
 void showStartupAnimation();
-void loadingAnimation(const string &);
+void loadingAnimation(const std::string &);
 void showInventoryMenu();
 void showSalesMenu();
+void processSale();
+std::vector<Sale> getAllSales();
 void addMedicine();
 void updateMedicine();
 void checkExpiry();
 void searchMedicine();
-void processSale();
 void viewSalesReport();
 #endif

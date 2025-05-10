@@ -5,17 +5,8 @@
 int main()
 {
 
-    MYSQL *conn = createConnection();
-    if (!conn)
-    {
-        std::cerr << "Failed to create connection with mysql." << std::endl;
-        return 1; // Exit with an error code
-    }
-
-    // start the program
-    startProgram(conn);
-
-    // Close the connection
-    closeConnection(conn);
+    startProgram();
+    // clean up
+    delete MySQLConnection::getInstance();
     return 0;
 }

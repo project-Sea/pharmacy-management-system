@@ -1,7 +1,7 @@
 #include "../include/src.h"
 #include "../include/ui.h"
 
-void startProgram(MYSQL *conn)
+void startProgram()
 {
 
     system("COLOR 7");
