@@ -5,7 +5,6 @@ void startProgram()
 {
 
     system("COLOR 7");
-    showStartupAnimation();
     showWelcomeScreen();
     showMainMenu();
     // system("cls");

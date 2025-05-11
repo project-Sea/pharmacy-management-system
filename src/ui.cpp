@@ -55,9 +55,7 @@ void showWelcomeScreen()
     std::cout << "\t\t\t\t#     Pharmacy Management System   #\n";
     std::cout << "\t\t\t\t#                                  #\n";
     std::cout << "\t\t\t\t####################################\n";
-    std::cout << "\n\t\t\t\t### No Expired Drugs Detected ###\n";
-
-    Sleep(2500);
+    checkExpiry();
     system("COLOR B");
 }
 

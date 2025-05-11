@@ -1,4 +1,11 @@
+#ifndef EXPIRY_H
+#define EXPIRY_H
+
+#include <mysql.h>
 #include <iostream>
+void checkExpiryAll();
+#endif
+/*#include <iostream>
 #include <ctime>
 
 struct ExpiryDate
@@ -55,4 +62,4 @@ void printCurrentDate()
 {
     ExpiryDate currentDate = getCurrentDate();
     std::cout << "Current date: " << currentDate.year << "-" << currentDate.month << "-" << currentDate.day << std::endl;
-}
+}*/
