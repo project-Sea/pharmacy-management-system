@@ -92,7 +92,7 @@ void loadingAnimation(const std::string &message)
 }
 
 void showInventoryMenu()
-{
+{   
     int inventoryChoice;
     do
     {
@@ -147,11 +147,12 @@ void showSalesMenu()
         std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
         std::cout << "\t\t\t\t| 1. Process Sales Transaction        |\n";
         std::cout << "\t\t\t\t| 2. View Sales Reports               |\n";
-        std::cout << "\t\t\t\t| 3. Return to Main Menu              |\n";
+        std::cout << "\t\t\t\t| 3. Transaction log                  |\n";
+        std::cout << "\t\t\t\t| 4. Return to Main Menu              |\n";
         std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
         std::cout << "\n\t\t\t\tEnter your choice: ";
         std::cin >> salesChoice;
-        // C:\Users\HP\Documents\GitHub\Cpp resources and projects\fop_project
+
         switch (salesChoice)
         {
         case 1:
@@ -159,10 +160,6 @@ void showSalesMenu()
             break;
         case 2:
         {
-            // std::vector<Sale> getAllSales();
-
-            // viewSalesReport();
-
             auto sales = getAllSales();
 
             std::cout << "\n\n\t\t\t\tSales Report\n";
@@ -178,12 +175,62 @@ void showSalesMenu()
             break;
         }
         case 3:
+        {
+            transactionLog();
+        }
+            break;
+        case 4:
             break;
         default:
             std::cout << "\n\t\t\t\tInvalid choice! Try again.\n";
             Sleep(1000);
         }
-    } while (salesChoice != 3);
+    } while (salesChoice != 4); // Changed from 3 to 4
+}
+
+void transactionLog()
+{
+    loadingAnimation("Loading Transaction Log Page");
+    system("cls");
+    int TChoice;
+    system("cls");
+
+    do
+    {
+        std::cout << "\n\n";
+        std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
+        std::cout << "\t\t\t\t|     Transaction Log                 |\n";
+        std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
+        std::cout << "\t\t\t\t| 1. Daily Report                     |\n";
+        std::cout << "\t\t\t\t| 2. Weekly Report                    |\n";
+        std::cout << "\t\t\t\t| 3. Monthly Report                   |\n";
+        std::cout << "\t\t\t\t| 4. Net Revenue Report               |\n";
+        std::cout << "\t\t\t\t| 5. Return to Sales Menu             |\n";
+        std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
+        std::cout << "\n\t\t\t\tEnter your choice: ";
+        std::cin >> TChoice;
+        // C:\Users\HP\Documents\GitHub\Cpp resources and projects\fop_project
+        switch (TChoice){
+        case 1:
+            generateDailyReport();
+            break;
+        case 2:
+            generateWeeklyReport();
+            break;
+        case 3:
+            generateMonthlyReport();
+            break;
+        case 4:
+            generateNetRevenueReport();
+            break;
+        case 5:
+            break;
+        }
+    }while(TChoice != 5);
+    //generateNetRevenueReport();
+    // Implement transaction log functionality here
+    // For example, you can read from a file or database and display the logs
+    system("pause");
 }
 
 void addMedicine()
