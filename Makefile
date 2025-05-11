@@ -3,7 +3,7 @@ CXXFLAGS := -std=c++17 -Iinclude -Iinclude/mysql
 
 LDFLAGS := -Llib -lmysql
 
-SRCS := main.cpp src/db_connection.cpp src/src.cpp src/ui.cpp src/sales.cpp
+SRCS := main.cpp src/db_connection.cpp src/src.cpp src/ui.cpp src/sales.cpp src/expenses.cpp
 TARGET := main
 
 all: $(TARGET)
