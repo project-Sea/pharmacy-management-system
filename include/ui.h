@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "sales.h"
+#include "expiryF.h"
 void showMainMenu();
 void showWelcomeScreen();
 void showStartupAnimation();
@@ -13,7 +14,10 @@ void loadingAnimation(const std::string &);
 void showInventoryMenu();
 void showSalesMenu();
 void processSale();
+
 std::vector<Sale> getAllSales();
+//
+void checkExpiryAll();
 void addMedicine();
 void updateMedicine();
 void checkExpiry();

@@ -55,9 +55,7 @@ void showWelcomeScreen()
     std::cout << "\t\t\t\t#     Pharmacy Management System   #\n";
     std::cout << "\t\t\t\t#                                  #\n";
     std::cout << "\t\t\t\t####################################\n";
-    std::cout << "\n\t\t\t\t### No Expired Drugs Detected ###\n";
-
-    Sleep(2500);
+    checkExpiry();
     system("COLOR B");
 }
 
@@ -99,6 +97,7 @@ void showInventoryMenu()
     do
     {
         system("cls");
+        system("COLOR B");
         std::cout << "\n\n";
         std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
         std::cout << "\t\t\t\t|     Medicine Inventory Management   |\n";
@@ -121,7 +120,7 @@ void showInventoryMenu()
             // updateMedicineInfo();
             break;
         case 3:
-            // checkExpiry();
+            checkExpiry();
             break;
         case 4:
             // searchMedicine();
@@ -208,6 +207,7 @@ void checkExpiry()
     loadingAnimation("Loading Check Expiry Dates Page");
     system("cls");
     std::cout << "\n\n\t\t\t\tCheck Expiry Dates";
+    checkExpiryAll();
     system("pause");
 }
 
