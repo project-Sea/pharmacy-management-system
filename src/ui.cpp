@@ -147,7 +147,8 @@ void showSalesMenu()
         std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
         std::cout << "\t\t\t\t| 1. Process Sales Transaction        |\n";
         std::cout << "\t\t\t\t| 2. View Sales Reports               |\n";
-        std::cout << "\t\t\t\t| 3. Return to Main Menu              |\n";
+        std::cout << "\t\t\t\t| 3. add expenses                     |\n";
+        std::cout << "\t\t\t\t| 4. Return to Main Menu              |\n";
         std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
         std::cout << "\n\t\t\t\tEnter your choice: ";
         std::cin >> salesChoice;
@@ -167,17 +168,31 @@ void showSalesMenu()
 
             std::cout << "\n\n\t\t\t\tSales Report\n";
 
+            // for (const auto &s : sales)
+            // {
+            //     std::cout << "Sale ID: " << s.sale_id
+            //               << ", Drug ID: " << s.drug_id
+            //               << ", Quantity: " << s.quantity_sold
+            //               << ", Total: $" << s.total_price
+            //               << ", Date: " << s.sale_date << "\n";
+            // }
+            std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(50) << "-" << std::endl;
+            std::cout << "\t\t\t\t| Sale ID | Drug ID | Quantity | Total Price |    Sale Date   |\n";
+            std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(50) << "-" << std::endl;
             for (const auto &s : sales)
             {
-                std::cout << "Sale ID: " << s.sale_id
-                          << ", Drug ID: " << s.drug_id
-                          << ", Quantity: " << s.quantity_sold
-                          << ", Total: $" << s.total_price
-                          << ", Date: " << s.sale_date << "\n";
+                std::cout << "\t\t\t\t| " << std::setw(7) << s.sale_id
+                          << " | " << std::setw(7) << s.drug_id
+                          << " | " << std::setw(8) << s.quantity_sold
+                          << " | " << std::setw(11) << "$" << std::fixed << std::setprecision(2) << s.total_price
+                          << " | " << std::setw(10) << s.sale_date << " |\n";
             }
             break;
         }
         case 3:
+            addExpenses();
+            break;
+        case 4:
             break;
         default:
             std::cout << "\n\t\t\t\tInvalid choice! Try again.\n";

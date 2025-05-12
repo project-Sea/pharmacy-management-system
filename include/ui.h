@@ -14,6 +14,7 @@ void showInventoryMenu();
 void showSalesMenu();
 void processSale();
 std::vector<Sale> getAllSales();
+void addExpenses();
 void checkExpiry();
 void viewSalesReport();
 #endif
