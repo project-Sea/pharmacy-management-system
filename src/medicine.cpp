@@ -1,5 +1,42 @@
 #include "../include/medicine.h"
 
+void searchMedicine(){
+    std::string name;
+    std::cout << "\t\t\t\tEnter the name of the medicine to search: ";
+    std::cin >> name;
+    // Create a connection to the database
+    MYSQL *conn = MySQLConnection::getInstance()->getConn();
+    if (conn == nullptr)
+    {
+        std::cerr << "\t\t\t\tFailed to connect to the database.\n";
+        return;
+    }
+    
+    // Prepare the SQL statement
+    std::string query = "SELECT d.id, d.name, d.quantity_stock, d.price_purchase, d.price_selling, "
+                        "d.expiration_date, DATE(d.insertion_date), d.description, c.category_name "
+                        "FROM DRUG d LEFT JOIN Category c ON d.category_id = c.id "
+                        "WHERE d.name LIKE '%" + name + "%'";
+    // Execute the SQL statement
+    if (mysql_query(conn, query.c_str()))
+    {
+        std::cerr << "\t\t\t\tQuery failed: " << mysql_error(conn) << std::endl;
+        return;
+    }
+
+    MYSQL_RES *result = mysql_store_result(conn);
+    if (result == nullptr)
+    {
+        std::cerr << "\t\t\t\tFailed to store result: " << mysql_error(conn) << std::endl;
+        return;
+    }
+
+    // Display the table with drug data
+    displayDrugsTable(result);
+    system("pause");
+    mysql_free_result(result);
+}
+
 void clearInputBuffer()
 {
     std::cin.clear();            // clear the error flag
@@ -9,27 +46,27 @@ void clearInputBuffer()
 void displayDrugsTable(MYSQL_RES *result)
 {
     // Print the table header
-    std::cout << "\n\t\t\t\t+--------+-------------------------+-------+------------+------------+------------+---------------------+-------------------------+--------------------+\n";
-    std::cout << "\t\t\t\t|  ID    |         Name            |  Qty  |  Purchase  |  Selling   |   Expiry   |      Added          |       Description       |    Category        |\n";
-    std::cout << "\t\t\t\t+--------+-------------------------+-------+------------+------------+------------+---------------------+-------------------------+--------------------+\n";
+    std::cout << "\n+-----+-------------------------+------+----------+---------+------------+------------+-------------------------+--------------------+\n";
+    std::cout << "| ID  |         Name            |  Qty | Purchase | Selling |   Expiry   |   Added    |       Description       |    Category        |\n";
+    std::cout << "+-----+-------------------------+------+----------+---------+------------+------------+-------------------------+--------------------+\n";
 
     MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)))
     {
         // Ensure consistent column width
-        std::cout << "\t\t\t\t| "
-                  << std::setw(6) << (row[0] ? row[0] : "N/A") << " | "
-                  << std::setw(25) << (row[1] ? row[1] : "N/A") << " | "
-                  << std::setw(5) << (row[2] ? row[2] : "N/A") << " | "
-                  << std::setw(10) << (row[3] ? row[3] : "N/A") << " | "
-                  << std::setw(10) << (row[4] ? row[4] : "N/A") << " | "
-                  << std::setw(10) << (row[5] ? row[5] : "N/A") << " | "
-                  << std::setw(19) << (row[6] ? row[6] : "N/A") << " | "
-                  << std::setw(25) << (row[7] ? row[7] : "N/A") << " | "
-                  << std::setw(18) << (row[8] ? row[8] : "N/A") << " |\n";
+        std::cout << "| "
+                  << std::setw(3) << (row[0] ? row[0] : "N/A") << " | "
+                  << std::setw(23) << (row[1] ? row[1] : "N/A") << " | "
+                  << std::setw(4) << (row[2] ? row[2] : "N/A") << " | "
+                  << std::setw(6) << (row[3] ? row[3] : "N/A") << " | "
+                  << std::setw(6) << (row[4] ? row[4] : "N/A") << " | "
+                  << std::setw(8) << (row[5] ? row[5] : "N/A") << " | "
+                  << std::setw(8) << (row[6] ? row[6] : "N/A") << " | "
+                  << std::setw(23) << (row[7] ? row[7] : "N/A") << " | "
+                  << std::setw(20) << (row[8] ? row[8] : "N/A") << " | \n";
     }
 
-    std::cout << "\t\t\t\t+--------+-------------------------+-------+------------+------------+------------+---------------------+-------------------------+--------------------+\n";
+    std::cout << "+--------+-------------------------+-------+------------+------------+------------+---------------------+-------------------------+--------------------+\n";
 }
 std::string getValidDate(const std::string &prompt)
 {
@@ -325,7 +362,7 @@ void Medicine::getAllMedicines()
 
     std::string query =
         "SELECT d.id, d.name, d.quantity_stock, d.price_purchase, d.price_selling, "
-        "d.expiration_date, d.insertion_date, d.description, c.category_name "
+        "d.expiration_date, DATE(d.insertion_date), d.description, c.category_name "
         "FROM Drug d LEFT JOIN Category c ON d.category_id = c.id";
 
     if (mysql_query(conn, query.c_str()))
