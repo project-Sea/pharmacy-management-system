@@ -13,7 +13,7 @@
 * Alehegne Geta – ETS0130/16
 * Amanawit Behailu – ETS0135/16
 * Amanuel Ayele – ETS0140/16
-* Amanuel Getachewu – ETS0147/16
+* Amanuel Getachew – ETS0147/16
 * Amanuel Habtamu – ETS0148/16
 
 ---
