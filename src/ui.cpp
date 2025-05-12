@@ -1,5 +1,6 @@
 #include "../include/ui.h"
 #include "../include/medicine.h"
+#include "../include/reports.h"
 void showMainMenu()
 {
     int choice;
@@ -117,16 +118,15 @@ void showInventoryMenu()
             updateMedicineInfo();
             break;
         case 3:
-<<<<<<< HEAD
+
             showAllMedicines();
-            == == == =
-                         checkExpiry();
->>>>>>> cb58fe638ce69e27abfa97d441840890746b67f2
+
             break;
         case 4:
-            // searchMedicine();
+            checkExpiry();
             break;
         case 5:
+            // searchMedicine();
             break;
         case 6:
             break;
@@ -134,7 +134,7 @@ void showInventoryMenu()
             std::cout << "\n\t\t\t\tInvalid choice! Try again.\n";
             Sleep(1000);
         }
-    } while (inventoryChoice != 5);
+    } while (inventoryChoice != 6);
 }
 
 void showSalesMenu()
@@ -244,5 +244,50 @@ void searchMedicine()
     loadingAnimation("Loading Search Medicines Page");
     system("cls");
     std::cout << "\n\n\t\t\t\tSearch Medicines";
+    system("pause");
+}
+void transactionLog()
+{
+    loadingAnimation("Loading Transaction Log Page");
+    system("cls");
+    int TChoice;
+    system("cls");
+
+    do
+    {
+        std::cout << "\n\n";
+        std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
+        std::cout << "\t\t\t\t|     Transaction Log                 |\n";
+        std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
+        std::cout << "\t\t\t\t| 1. Daily Report                     |\n";
+        std::cout << "\t\t\t\t| 2. Weekly Report                    |\n";
+        std::cout << "\t\t\t\t| 3. Monthly Report                   |\n";
+        std::cout << "\t\t\t\t| 4. Net Revenue Report               |\n";
+        std::cout << "\t\t\t\t| 5. Return to Sales Menu             |\n";
+        std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
+        std::cout << "\n\t\t\t\tEnter your choice: ";
+        std::cin >> TChoice;
+        // C:\Users\HP\Documents\GitHub\Cpp resources and projects\fop_project
+        switch (TChoice)
+        {
+        case 1:
+            generateDailyReport();
+            break;
+        case 2:
+            generateWeeklyReport();
+            break;
+        case 3:
+            generateMonthlyReport();
+            break;
+        case 4:
+            generateNetRevenueReport();
+            break;
+        case 5:
+            break;
+        }
+    } while (TChoice != 5);
+    // generateNetRevenueReport();
+    //  Implement transaction log functionality here
+    //  For example, you can read from a file or database and display the logs
     system("pause");
 }

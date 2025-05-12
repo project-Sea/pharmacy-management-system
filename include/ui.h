@@ -16,7 +16,7 @@ void showInventoryMenu();
 void showSalesMenu();
 void processSale();
 void transactionLog();
-//g
+// g
 std::vector<Sale> getAllSales();
 //
 void checkExpiryAll();
