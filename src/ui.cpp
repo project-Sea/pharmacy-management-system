@@ -101,9 +101,10 @@ void showInventoryMenu()
         std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
         std::cout << "\t\t\t\t| 1. Add New Medicine                 |\n";
         std::cout << "\t\t\t\t| 2. Update Medicine Details          |\n";
-        std::cout << "\t\t\t\t| 3. Check Expiry Dates               |\n";
-        std::cout << "\t\t\t\t| 4. Search Medicines                 |\n";
-        std::cout << "\t\t\t\t| 5. Return to Main Menu              |\n";
+        std::cout << "\t\t\t\t| 3. get All Medicines               |\n";
+        std::cout << "\t\t\t\t| 4. Check Expiry Dates               |\n";
+        std::cout << "\t\t\t\t| 5. Search Medicines                 |\n";
+        std::cout << "\t\t\t\t| 6. Return to Main Menu              |\n";
         std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
         std::cout << "\n\t\t\t\tEnter your choice: ";
         std::cin >> inventoryChoice;
@@ -117,12 +118,14 @@ void showInventoryMenu()
             updateMedicineInfo();
             break;
         case 3:
-            // checkExpiry();
+            showAllMedicines();
             break;
         case 4:
             // searchMedicine();
             break;
         case 5:
+            break;
+        case 6:
             break;
         default:
             std::cout << "\n\t\t\t\tInvalid choice! Try again.\n";
@@ -189,6 +192,14 @@ void addNewMedicine()
     system("cls");
     std::cout << "\n\n\t\t\t\tAdd New Medicine\n";
     Medicine::addMedicine();
+    system("pause");
+}
+void showAllMedicines()
+{
+    loadingAnimation("Loading All Medicines Page");
+    system("cls");
+    std::cout << "\n\n\t\t\t\tAll Medicines";
+    Medicine::getAllMedicines();
     system("pause");
 }
 

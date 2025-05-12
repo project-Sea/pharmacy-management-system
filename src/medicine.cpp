@@ -6,6 +6,31 @@ void clearInputBuffer()
     std::cin.ignore(1000, '\n'); // ignore up to 1000 characters or until newline
 }
 
+void displayDrugsTable(MYSQL_RES *result)
+{
+    // Print the table header
+    std::cout << "\n\t\t\t\t+--------+-------------------------+-------+------------+------------+------------+---------------------+-------------------------+--------------------+\n";
+    std::cout << "\t\t\t\t|  ID    |         Name            |  Qty  |  Purchase  |  Selling   |   Expiry   |      Added          |       Description       |    Category        |\n";
+    std::cout << "\t\t\t\t+--------+-------------------------+-------+------------+------------+------------+---------------------+-------------------------+--------------------+\n";
+
+    MYSQL_ROW row;
+    while ((row = mysql_fetch_row(result)))
+    {
+        // Ensure consistent column width
+        std::cout << "\t\t\t\t| "
+                  << std::setw(6) << (row[0] ? row[0] : "N/A") << " | "
+                  << std::setw(25) << (row[1] ? row[1] : "N/A") << " | "
+                  << std::setw(5) << (row[2] ? row[2] : "N/A") << " | "
+                  << std::setw(10) << (row[3] ? row[3] : "N/A") << " | "
+                  << std::setw(10) << (row[4] ? row[4] : "N/A") << " | "
+                  << std::setw(10) << (row[5] ? row[5] : "N/A") << " | "
+                  << std::setw(19) << (row[6] ? row[6] : "N/A") << " | "
+                  << std::setw(25) << (row[7] ? row[7] : "N/A") << " | "
+                  << std::setw(18) << (row[8] ? row[8] : "N/A") << " |\n";
+    }
+
+    std::cout << "\t\t\t\t+--------+-------------------------+-------+------------+------------+------------+---------------------+-------------------------+--------------------+\n";
+}
 std::string getValidDate(const std::string &prompt)
 {
     std::string date;
@@ -287,4 +312,37 @@ void Medicine::updateMedicine()
     }
 
     std::cout << "\n\t\t\t\tDrug updated successfully!\n";
+}
+void Medicine::getAllMedicines()
+{
+    MYSQL *conn = MySQLConnection::getInstance()->getConn();
+
+    if (!conn)
+    {
+        std::cerr << "\t\t\t\tDatabase connection failed.\n";
+        return;
+    }
+
+    std::string query =
+        "SELECT d.id, d.name, d.quantity_stock, d.price_purchase, d.price_selling, "
+        "d.expiration_date, d.insertion_date, d.description, c.category_name "
+        "FROM Drug d LEFT JOIN Category c ON d.category_id = c.id";
+
+    if (mysql_query(conn, query.c_str()))
+    {
+        std::cerr << "\t\t\t\tQuery failed: " << mysql_error(conn) << "\n";
+        return;
+    }
+
+    MYSQL_RES *result = mysql_store_result(conn);
+    if (!result)
+    {
+        std::cerr << "\t\t\t\tFailed to store result: " << mysql_error(conn) << "\n";
+        return;
+    }
+
+    // Display the table with drug data
+    displayDrugsTable(result);
+
+    mysql_free_result(result);
 }

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "db_connection.h"
 #include <vector>
 #include <ctime>
@@ -16,6 +17,7 @@ private:
 public:
     static void addMedicine();
     static void updateMedicine();
+    static void getAllMedicines();
     // void deleteMedicine(long long id);
     // void searchMedicine(long long id);
 };
@@ -23,4 +25,5 @@ void searchMedicine();
 void addNewMedicine();
 void updateMedicine();
 void updateMedicineInfo();
+void showAllMedicines();
 #endif
