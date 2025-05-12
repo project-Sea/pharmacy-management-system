@@ -4,6 +4,7 @@
 #include "../include/ui.h"
 
 void checkExpiryAll() {
+    system("cls");
     system("COLOR 6");
     showStartupAnimation();
     // Get a fresh connection instance for this function

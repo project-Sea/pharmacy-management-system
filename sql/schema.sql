@@ -35,6 +35,14 @@ CREATE TABLE IF NOT EXISTS Sales (
     FOREIGN KEY (drug_id) REFERENCES Drug(id) ON DELETE CASCADE
 );
 
+-- Table: Expired_Drug_Log
+CREATE TABLE IF NOT EXISTS Expired_Drug_Log (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    drug_id INT,
+    expiry_date DATE,
+    notification_date DATETIME,
+    FOREIGN KEY (drug_id) REFERENCES Drug(id) ON DELETE CASCADE
+);
 
 -- Table: Transaction_Log
 CREATE TABLE IF NOT EXISTS Transaction_Log (
