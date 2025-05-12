@@ -72,9 +72,4 @@ This Pharmacy Management System is a console-based application built in **C++** 
 
 ## 📄 Note
 
-This project is part of the coursework for **Fundamentals of Programming II** and is for educational purposes only.
-
----
-
-Would you like me to include sample database tables or a simple menu-based C++ starter code as well?
-
+This project is part of the coursework for **Fundamentals of Programming II** 
