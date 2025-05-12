@@ -18,12 +18,12 @@ public:
     static void addMedicine();
     static void updateMedicine();
     static void getAllMedicines();
-    // void deleteMedicine(long long id);
-    // void searchMedicine(long long id);
+    
 };
 void searchMedicine();
 void addNewMedicine();
 void updateMedicine();
 void updateMedicineInfo();
 void showAllMedicines();
+void displayDrugsTable(MYSQL_RES *result);
 #endif

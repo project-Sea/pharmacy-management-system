@@ -27,10 +27,10 @@ void checkExpiryAll() {
 
             if (num_rows > 0) {
                 system("COLOR C");
-                std::cout << "\n\n\n";
-                std::cout << "\t\t\t\t!!!ALERT!!!\n";
-                std::cout << "\t\t\t\tExpired Medicines (" << num_rows << " found):\n";
-                std::cout << "\n\n\n";
+                std::cout << "\n\n";
+                std::cout << "\n\t\t\t\t=========== !!!ALERT!!! =========\n";
+                std::cout << "\n\t\t\t\tExpired Medicines (" << num_rows << " found):\n";
+                std::cout << "\n\n";
                 std::cout << "\t\t\t\t####################################\n";
 
                 // Print table header

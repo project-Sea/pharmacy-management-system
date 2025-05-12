@@ -126,8 +126,12 @@ void showInventoryMenu()
             checkExpiry();
             break;
         case 5:
-            // searchMedicine();
+        {   
+            loadingAnimation("Loading Search Medicines Page");
+            system("cls");
+            searchMedicine();
             break;
+        }
         case 6:
             break;
         default:
@@ -239,13 +243,6 @@ void checkExpiry()
     system("pause");
 }
 
-void searchMedicine()
-{
-    loadingAnimation("Loading Search Medicines Page");
-    system("cls");
-    std::cout << "\n\n\t\t\t\tSearch Medicines";
-    system("pause");
-}
 void transactionLog()
 {
     loadingAnimation("Loading Transaction Log Page");
