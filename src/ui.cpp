@@ -52,6 +52,7 @@ void showWelcomeScreen()
     std::cout << "\t\t\t\t#     Pharmacy Management System   #\n";
     std::cout << "\t\t\t\t#                                  #\n";
     std::cout << "\t\t\t\t####################################\n";
+    Sleep(3000);
     checkExpiry();
     system("COLOR B");
 }
