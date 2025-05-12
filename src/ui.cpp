@@ -119,8 +119,8 @@ void showInventoryMenu()
         case 3:
 <<<<<<< HEAD
             showAllMedicines();
-=======
-            checkExpiry();
+            == == == =
+                         checkExpiry();
 >>>>>>> cb58fe638ce69e27abfa97d441840890746b67f2
             break;
         case 4:
@@ -151,11 +151,12 @@ void showSalesMenu()
         std::cout << "\t\t\t\t| 1. Process Sales Transaction        |\n";
         std::cout << "\t\t\t\t| 2. View Sales Reports               |\n";
         std::cout << "\t\t\t\t| 3. add expenses                     |\n";
-        std::cout << "\t\t\t\t| 4. Return to Main Menu              |\n";
+        std::cout << "\t\t\t\t| 4. Transaction log                  |\n";
+        std::cout << "\t\t\t\t| 5. Return to Main Menu              |\n";
         std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
         std::cout << "\n\t\t\t\tEnter your choice: ";
         std::cin >> salesChoice;
-        // C:\Users\HP\Documents\GitHub\Cpp resources and projects\fop_project
+
         switch (salesChoice)
         {
         case 1:
@@ -163,10 +164,6 @@ void showSalesMenu()
             break;
         case 2:
         {
-            // std::vector<Sale> getAllSales();
-
-            // viewSalesReport();
-
             auto sales = getAllSales();
 
             std::cout << "\n\n\t\t\t\tSales Report\n";
@@ -196,12 +193,15 @@ void showSalesMenu()
             addExpenses();
             break;
         case 4:
+            transactionLog();
+            break;
+        case 5:
             break;
         default:
             std::cout << "\n\t\t\t\tInvalid choice! Try again.\n";
             Sleep(1000);
         }
-    } while (salesChoice != 3);
+    } while (salesChoice != 5);
 }
 
 void addNewMedicine()
