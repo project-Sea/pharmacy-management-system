@@ -15,7 +15,7 @@ MySQLConnection::MySQLConnection()
     // Disable SSL
     int ssl_mode = SSL_MODE_DISABLED;
     mysql_options(conn, MYSQL_OPT_SSL_MODE, &ssl_mode);
-    conn = mysql_real_connect(conn, "localhost", "root", "your password", "fop_db2", 3306, NULL, 0);
+    conn = mysql_real_connect(conn, "localhost", "root", "getamaze09780922", "fop_db2", 3306, NULL, 0);
     if (conn)
     {
     }

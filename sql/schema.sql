@@ -12,23 +12,18 @@ CREATE TABLE IF NOT EXISTS Category (
 -- Table: Drug
 CREATE TABLE IF NOT EXISTS Drug (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255),
+    name VARCHAR(255) NOT NULL,
     quantity_stock INT,
     price_purchase DECIMAL(10, 2),
     price_selling DECIMAL(10, 2),
     expiration_date DATE,
     insertion_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    description VARCHAR(255)
+    description VARCHAR(255),
+    category_id INT,
+    FOREIGN KEY (category_id) REFERENCES Category(id) ON DELETE SET NULL
 );
 
--- Table: Drug_Categories (Many-to-Many for categorizing drugs)
-CREATE TABLE IF NOT EXISTS Drug_Categories (
-    drug_id INT,
-    category_id INT,
-    PRIMARY KEY (drug_id, category_id),
-    FOREIGN KEY (drug_id) REFERENCES Drug(id) ON DELETE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES Category(id) ON DELETE CASCADE
-);
+
 
 -- Table: Sales
 CREATE TABLE IF NOT EXISTS Sales (
@@ -69,13 +64,13 @@ INSERT IGNORE INTO Drug (id, name, quantity_stock, price_purchase, price_selling
 (1, 'Amoxicillin 500mg', 100, 3.50, 5.00, '2025-12-15', NOW(), 'Common antibiotic for infections'),
 (2, 'Paracetamol 500mg', 200, 0.10, 0.25, '2026-03-01', NOW(), 'Pain and fever reducer'),
 (3, 'Vitamin C 1000mg', 150, 0.50, 1.00, '2025-11-10', NOW(), 'Boosts immunity');
-
+/*
 -- Drug_Categories
 INSERT IGNORE INTO Drug_Categories (drug_id, category_id) VALUES
 (1, 1),
 (2, 2),
 (3, 3);
-
+*/
 -- Sales
 INSERT IGNORE INTO Sales (sale_id, drug_id, quantity_sold, total_price, sale_date) VALUES
 (1, 1, 10, 50.00, NOW() - INTERVAL 1 DAY),
@@ -93,4 +88,3 @@ INSERT IGNORE INTO Transaction_Log (transaction_id, type, amount, transaction_da
 (1, 'Sale', 50.00, NOW() - INTERVAL 1 DAY, 'Sold Amoxicillin'),
 (2, 'Sale', 5.00, NOW(), 'Sold Paracetamol'),
 (3, 'Expense', 200.00, NOW() - INTERVAL 3 DAY, 'Stock Purchase');
-

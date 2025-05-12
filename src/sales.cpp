@@ -81,9 +81,21 @@ void processSale()
             std::cout << "\t\t\t\tStock updated successfully.\n";
         }
 
+        // record the sale to the transaction log
+        const std::string insertTransaction = "INSERT INTO TRANSACTION_LOG (amount, description,type) VALUES (" +
+                                              std::to_string(totalPrice) + ", 'Sale of Drug ID " +
+                                              std::to_string(drugId) + "', 'Sale')";
+        if (mysql_query(conn, insertTransaction.c_str()))
+        {
+            std::cerr << "Query failed: " << mysql_error(conn) << std::endl;
+        }
+        else
+        {
+            std::cout << "\t\t\t\tTransaction logged successfully.\n";
+        }
+
         std::cout << "\t\t\t\tSale recorded successfully.\n";
     }
-    std::cout << "\n\t\t\t\tPress any key to return to the main menu...\n";
     system("pause");
 }
 
