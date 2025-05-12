@@ -43,7 +43,8 @@ void showMainMenu()
 
 void showWelcomeScreen()
 {
-    system("COLOR 7");
+    system("cls");
+    system("COLOR B");
 
     std::cout << "\n\n\n";
     std::cout << "\t\t\t\t####################################\n";
@@ -52,7 +53,7 @@ void showWelcomeScreen()
     std::cout << "\t\t\t\t#     Pharmacy Management System   #\n";
     std::cout << "\t\t\t\t#                                  #\n";
     std::cout << "\t\t\t\t####################################\n";
-    Sleep(3000);
+    system("Pause");
     checkExpiry();
     system("COLOR B");
 }
@@ -145,10 +146,11 @@ void showInventoryMenu()
 void showSalesMenu()
 {
     int salesChoice;
-    system("cls");
+    
 
     do
     {
+        system("cls");
         std::cout << "\n\n";
         std::cout << "\t\t\t\t" << std::setfill('-') << std::setw(43) << "-" << std::endl;
         std::cout << "\t\t\t\t|     Sales & Financial Management    |\n";
