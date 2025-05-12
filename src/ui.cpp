@@ -1,9 +1,5 @@
 #include "../include/ui.h"
-
-// You must declare these if they're defined elsewhere
-void showInventoryMenu();
-void showSalesMenu();
-
+#include "../include/medicine.h"
 void showMainMenu()
 {
     int choice;
@@ -115,10 +111,10 @@ void showInventoryMenu()
         switch (inventoryChoice)
         {
         case 1:
-            // addNewMedicine();
+            addNewMedicine();
             break;
         case 2:
-            // updateMedicineInfo();
+            updateMedicineInfo();
             break;
         case 3:
             // checkExpiry();
@@ -187,19 +183,21 @@ void showSalesMenu()
     } while (salesChoice != 3);
 }
 
-void addMedicine()
+void addNewMedicine()
 {
     loadingAnimation("Loading Add New Medicine Page");
     system("cls");
-    std::cout << "\n\n\t\t\t\tAdd New Medicine";
+    std::cout << "\n\n\t\t\t\tAdd New Medicine\n";
+    Medicine::addMedicine();
     system("pause");
 }
 
-void updateMedicine()
+void updateMedicineInfo()
 {
     loadingAnimation("Loading Update Medicine Details Page");
     system("cls");
     std::cout << "\n\n\t\t\t\tUpdate Medicine Details";
+    Medicine::updateMedicine();
     system("pause");
 }
 
