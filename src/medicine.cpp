@@ -138,15 +138,56 @@ void Medicine::addMedicine()
             std::cerr << "\t\t\t\tFailed to connect to the database.\n";
             return;
         }
+
+        // add the category to the category table if it does not exist,
+        // if it exists, return the id of the category
+        std::cout << "Adding category...\n";
+        std::string categoryQuery = "INSERT IGNORE INTO category (category_name) VALUES ('" + category + "')";
+        if (mysql_query(conn, categoryQuery.c_str()))
+        {
+            std::cerr << "\t\t\t\tQuery failed: " << mysql_error(conn) << std::endl;
+            return;
+        }
+        // get the category id
+        std::cout << "fine\n";
+        auto categoryId = mysql_insert_id(conn);
+        std::cout << "\t\t\t\tCategory ID: " << categoryId << "\n";
+
+        if (categoryId == 0)
+        {
+            std::string getCaQuery = "SELECT id FROM category where category_name = '" + category + "'";
+            if (mysql_query(conn, getCaQuery.c_str()))
+            {
+                std::cerr << "\t\t\t\tsystem error: " << mysql_error(conn) << std::endl;
+                return;
+            }
+            MYSQL_RES *result = mysql_store_result(conn);
+            MYSQL_ROW row = mysql_fetch_row(result);
+            if (row)
+            {
+                categoryId = std::stoll(row[0]);
+                std::cout << "\t\t\t\tCategory ID: " << categoryId << "\n";
+            }
+            else
+            {
+                std::cerr << "\t\t\t\tCategory not found.\n";
+                mysql_free_result(result);
+                return;
+            }
+
+            mysql_free_result(result);
+            std::cout << "\t\t\t\tCategory ID: " << categoryId << "\n";
+        }
+
         // Prepare the SQL statement
-        std::string query = "INSERT INTO DRUG (name, quantity_stock, price_purchase, price_selling, expiration_date,description) VALUES ('" +
+        std::string query = "INSERT INTO DRUG (name, quantity_stock, price_purchase, price_selling, expiration_date,description,category_id) VALUES ('" +
                             name + "', " +
                             std::to_string(quantity) + ", " +
                             std::to_string(price_purchase) + ", " +
-                            std::to_string(price_sale) + ", '" +
+                            std::to_string(price_sale) + ",'" +
                             expiryDate + "', '" +
-                            description + "')";
-        // Execute the SQL statement
+                            description + "'," +
+                            std::to_string(categoryId) + ")";
         if (mysql_query(conn, query.c_str()))
         {
             std::cerr << "\t\t\t\tQuery failed: " << mysql_error(conn) << std::endl;
@@ -164,27 +205,16 @@ void Medicine::addMedicine()
                   << "\t\t\t\tDescription: " << description
                   << "\n";
 
-        // add the category to the category table if it does not exist,
-        // if it exists, return the id of the category
-        std::string categoryQuery = "INSERT IGNORE INTO category (category_name) VALUES ('" + category + "')";
-        if (mysql_query(conn, categoryQuery.c_str()))
-        {
-            std::cerr << "\t\t\t\tQuery failed: " << mysql_error(conn) << std::endl;
-            return;
-        }
-        // get the category id
-
-        auto categoryId = mysql_insert_id(conn);
-        // add the drug_id and category_id to the drug_category table
-        std::string drug_cat_query = "INSERT INTO DRUG_CATEGORIES (drug_id, category_id) VALUES (" +
-                                     std::to_string(categoryId) + ", " +
-                                     std::to_string(categoryId) + ")";
-        if (mysql_query(conn, drug_cat_query.c_str()))
-        {
-            std::cerr << "\t\t\t\tQuery failed: " << mysql_error(conn) << std::endl;
-            return;
-        }
-        std::cout << "\t\t\t\tAdded to category table!\n";
+        // // add the drug_id and category_id to the drug_category table
+        // std::string drug_cat_query = "INSERT INTO DRUG_CATEGORIES (drug_id, category_id) VALUES (" +
+        //                              std::to_string(categoryId) + ", " +
+        //                              std::to_string(categoryId) + ")";
+        // if (mysql_query(conn, drug_cat_query.c_str()))
+        // {
+        //     std::cerr << "\t\t\t\tQuery failed: " << mysql_error(conn) << std::endl;
+        //     return;
+        // }
+        // std::cout << "\t\t\t\tAdded to category table!\n";
     }
     catch (const std::exception &e)
     {
